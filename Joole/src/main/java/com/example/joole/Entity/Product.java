@@ -4,37 +4,18 @@ package com.example.joole.Entity;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @EnableAutoConfiguration
 public class Product {
     private Long id;
 
-    public int getTypeId() {
-        return typeId;
-    }
+    
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
 
-    public int getTechnicalDetailId() {
-        return technicalDetailId;
-    }
 
-    public void setTechnicalDetailId(int technicalDetailId) {
-        this.technicalDetailId = technicalDetailId;
-    }
 
-    public int getDescriptionId() {
-        return descriptionId;
-    }
-
-    public void setDescriptionId(int descriptionId) {
-        this.descriptionId = descriptionId;
-    }
 
     public String getBrand() {
         return brand;
@@ -52,9 +33,42 @@ public class Product {
         this.certification = certification;
     }
 
-    private int typeId;
-    private int technicalDetailId;
-    private int descriptionId;
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
+
+    public TechnicalDetail getTechnicalDetail() {
+        return technicalDetail;
+    }
+
+    public void setTechnicalDetail(TechnicalDetail technicalDetail) {
+        this.technicalDetail = technicalDetail;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "product_type")
+    private ProductType productType;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "technical_detail_id")
+    private TechnicalDetail technicalDetail;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "description")
+    private Description description;
     private String brand;
     private String certification;
 
