@@ -3,23 +3,25 @@ package com.example.joole.Entity;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @EnableAutoConfiguration
 public class Project {
     private Integer id;
 
-    public String getName() {
-        return name;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
 
     public void setId(Integer id) {
         this.id = id;
